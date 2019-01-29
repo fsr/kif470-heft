@@ -7,12 +7,23 @@
 
 % font
 \usepackage[english, ngerman]{babel}
-\usepackage{charter}
+\usepackage{fontspec}
+\usepackage{raleway}
+\usepackage{montserrat}
 \usepackage{microtype}
+
+\usepackage{xcolor}
 
 \usepackage[titles]{tocloft}
 \usepackage[autostyle=true]{csquotes}
 \usepackage[a5paper,includeheadfoot,margin=1.54cm]{geometry}
+
+% colors
+\definecolor{KIFgreen}{rgb}{0.69, 0.88, 0.11}  % #B1E11C
+\definecolor{KIFgrey} {rgb}{0.35, 0.35, 0.35}  % #595959
+
+\setmainfont[Color=KIFgrey]{Raleway}
+\setkomafont{chapter}{\color{KIFgreen}\fontspec{MontserratAlternates}\bfseries\huge}
 
 \begin{document}
 
