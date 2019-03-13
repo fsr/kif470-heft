@@ -19,13 +19,16 @@
 \usepackage[autostyle=true]{csquotes}
 \usepackage[a5paper,includeheadfoot,margin=1.54cm]{geometry}
 
-% colors
+% colours
 \definecolor{KIFgreen}{rgb}{0.69, 0.88, 0.11}  % #B1E11C
 \definecolor{KIFteal}{rgb}{0.09, 0.45, 0.56}  % #16738F
 \definecolor{KIFgrey} {rgb}{0.35, 0.35, 0.35}  % #595959
 
+% fonts
 \setmainfont[Color=KIFgrey]{Raleway}
+\addtokomafont{disposition}{\color{KIFgrey}\fontspec{Raleway}}
 \setkomafont{chapter}{\color{KIFteal}\fontspec{Montserrat}\bfseries\huge}
+\defaultfontfeatures{Ligatures=TeX}  % enable ligatures (e.g. --) for new fonts
 
 \begin{document}
 
