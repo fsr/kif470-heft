@@ -15,7 +15,6 @@
 \usepackage{eso-pic} % full-width images
 \usepackage{graphicx}
 \usepackage{wrapfig}
-\usepackage{hyperref}
 \usepackage{xcolor}
 
 \usepackage[titles]{tocloft}
@@ -32,6 +31,9 @@
 \addtokomafont{disposition}{\color{KIFgrey}\fontspec{Raleway}}
 \setkomafont{chapter}{\color{KIFteal}\fontspec{Montserrat}\bfseries\huge}
 \defaultfontfeatures{Ligatures=TeX}  % enable ligatures (e.g. --) for new fonts
+
+% load hyperref last
+\usepackage[hidelinks, pdfencoding=auto]{hyperref}
 
 \begin{document}
 
