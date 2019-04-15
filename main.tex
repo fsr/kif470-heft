@@ -13,6 +13,7 @@
 \usepackage{microtype}
 
 \usepackage{eso-pic} % full-width images
+\usepackage{pdfpages}
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{xcolor}
@@ -37,16 +38,7 @@
 
 \begin{document}
 
-% "cover"
-\vspace*{5cm}
-
-\begin{centering}
-  [cover]
-\end{centering}
-\thispagestyle{empty}
-\newpage
-
-\include{covers/front}
+\includepdf{cover/KIF_HEFT_COVER_FRONT}
 \include{texts/zeitplan}
 \include{texts/inhaltsverzeichnis}
 \include{texts/vorwort}
@@ -57,6 +49,6 @@
 \include{texts/supporters}
 \include{texts/imprint}
 \include{texts/campusplan}
-\include{covers/back}
+\includepdf{cover/KIF_HEFT_COVER_BACK}
 
 \end{document}
