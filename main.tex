@@ -54,7 +54,7 @@
     \edef\tmptoken{\detokenize{#1}}%
     \@ifundefined{kifheft@link@\tmptoken}{%
         \edef\@linknumber{\arabic{linkcounter}}%
-        \protected@edef\@tmpkey{{\fontsize{9pt}{0}\selectfont\keys{\@linknumber}}}%
+        \protected@edef\@tmpkey{{\fontsize{9pt}{0}\keys{\fontspec{Raleway}\@linknumber}}}%
         \expandafter\global\expandafter\edef\csname kifheft@link@\tmptoken\endcsname{\arabic{linkcounter}}%
         %
         % Standard print output:
