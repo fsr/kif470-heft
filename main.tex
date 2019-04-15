@@ -31,6 +31,11 @@
 \definecolor{KIFteal}{rgb}{0.09, 0.45, 0.56}  % #16738F
 \definecolor{KIFgrey} {rgb}{0.35, 0.35, 0.35}  % #595959
 
+% is toggled twice for moduluebersicht.tex
+\changemenucolor{gray}{bg}{named}{white} %background of the menukeys
+\changemenucolor{gray}{br}{named}{KIFteal} %border of the menukeys
+\changemenucolor{gray}{txt}{named}{KIFteal} %text of the menukeys
+
 % fonts
 \setmainfont[Color=KIFgrey]{Raleway}
 \addtokomafont{disposition}{\color{KIFgrey}\fontspec{Raleway}}
@@ -40,6 +45,7 @@
 % load hyperref last
 \usepackage[hidelinks, pdfencoding=auto]{hyperref}
 
+% TODO change font
 % beloved link counter <3
 \newcounter{linkcounter}
 \newcommand\linklist{}
