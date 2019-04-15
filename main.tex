@@ -18,6 +18,10 @@
 \usepackage{wrapfig}
 \usepackage{xcolor}
 
+% linklist-foo
+\usepackage{longtable}
+\usepackage{menukeys}
+
 \usepackage[titles]{tocloft}
 \usepackage[autostyle=true]{csquotes}
 \usepackage[a5paper,includeheadfoot,margin=1.54cm]{geometry}
@@ -36,7 +40,48 @@
 % load hyperref last
 \usepackage[hidelinks, pdfencoding=auto]{hyperref}
 
+% beloved link counter <3
+\newcounter{linkcounter}
+\newcommand\linklist{}
+\makeatletter
+\newcommand{\link}[1]{%
+    \edef\tmptoken{\detokenize{#1}}%
+    \@ifundefined{kifheft@link@\tmptoken}{%
+        \edef\@linknumber{\arabic{linkcounter}}%
+        \protected@edef\@tmpkey{{\fontsize{9pt}{0}\selectfont\keys{\@linknumber}}}%
+        \expandafter\global\expandafter\edef\csname kifheft@link@\tmptoken\endcsname{\arabic{linkcounter}}%
+        %
+        % Standard print output:
+        \expandafter\g@addto@macro\expandafter\linklist\expandafter{\@tmpkey & \url{#1}}%
+        \ifx\@breaklinklistat\@linknumber
+            \g@addto@macro\linklist{\\}%
+        \else
+            \ifx\@breaklinklistandat\@linknumber
+                \g@addto@macro\linklist{\\}%
+            \else
+                \g@addto@macro\linklist{\\*}%
+            \fi
+        \fi
+        %
+        % Link system output:
+        \immediate\write\linklistfile{RewriteRule "^\@linknumber$" "#1"}%
+        %
+        \stepcounter{linkcounter}%
+    }{%
+        \protected@edef\@tmpkey{{\fontsize{9pt}{0}\selectfont\keys{\csname kifheft@link@\tmptoken\endcsname}}}%
+    }%
+    \href{#1}{\@tmpkey}%
+}
+\makeatother
+
 \begin{document}
+
+% Linklist output
+% All this stuff needs is immediate to avoid confusion between links on the same page
+\immediate\newwrite\linklistfile
+\immediate\openout\linklistfile=kopimi.htaccess\relax
+\immediate\write\linklistfile{RewriteEngine On}
+\immediate\write\linklistfile{RewriteBase /}
 
 \includepdf{cover/KIF_HEFT_COVER_FRONT}
 \includepdf[angle = 90]{img/zeitplan/zeitplan.pdf}
@@ -47,8 +92,12 @@
 \include{texts/agenda}
 \include{texts/while_kif}
 \include{texts/supporters}
+\include{texts/links}
 \include{texts/imprint}
 \include{texts/campusplan}
 \includepdf{cover/KIF_HEFT_COVER_BACK}
+
+% close file
+\immediate\closeout\linklistfile
 
 \end{document}
