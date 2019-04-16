@@ -8,6 +8,7 @@
 \usepackage[margin=0.5cm,landscape]{geometry}
 % \usepackage[height=25cm]{geometry}
 \usepackage{timetable}
+\usepackage{transparent}
 
 \begin{document}
 \thispagestyle{empty}
@@ -35,44 +36,46 @@
 % \defineevent{ak}     {0.65}{0.65}{0.65}   {1.0}{1.0}{1.0}  % grau
 \defineevent{ak}     {0.09}{0.45}{0.56}   {1.0}{1.0}{1.0}  % petrol
 \defineevent{plenum} {0.96}{0.56}{0.07}   {1.0}{1.0}{1.0}  % orange
+\defineevent{anreise}{0.925}{0.925}{0.925}   {0.0}{0.0}{0.0}  % weiß
 
 % Start the timetable
 \begin{timetable}
   \hours{8}{15}{0}
   \germandays{1}
-  \event 1 {1800} {1900} {Erstkiffelplenum} {Schönfeld-Hörsaal (Barkhausen Bau)} {} {plenum}  {0}
-  \event 1 {1900} {2400} {Anfangsplenum}    {Schönfeld-Hörsaal (Barkhausen Bau)} {} {plenum}  {0}
+  \event 1 {0800} {1800} {Anreise} {} {} {} {anreise}  {0}
+  \event 1 {1800} {1900} {Erstkiffelplenum} {18} {Schönfeld-Hörsaal} {} {plenum}  {0}
+  \event 1 {1900} {2400} {Anfangsplenum}    {19} {Schönfeld-Hörsaal} {} {plenum}  {0}
 
-  \event 2 {1100} {1500} {Mittagessen}      {Alte Mensa}       {} {essen}   {0}
-  \event 2 {1600} {1800} {Hackerbrause}     {bar}              {} {brause}  {0}
-  \event 2 {1800} {2200} {Open Air}         {Parkplatz}        {} {spass}   {2}
-  \event 2 {2000} {2400} {Karaoke}          {KIF-Café (E023)}  {} {spass}   {1}
-  \event 2 {1000} {1200} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 2 {1200} {1400} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 2 {1400} {1600} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 2 {1600} {1800} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 2 {1800} {2000} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
+  \event 2 {1100} {1500} {Mittagessen}      {11} {Alte Mensa}        {} {essen}   {0}
+  \event 2 {1600} {1800} {Vortrag: Flora}   {16} {bar}               {} {brause}  {0}
+  \event 2 {1800} {2200} {Open Air}         {18} {Parkplatz}         {} {spass}   {2}
+  \event 2 {2000} {2400} {Karaoke}          {20} {KIF-Café (E023)}   {} {spass}   {1}
+  \event 2 {1000} {1200} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 2 {1200} {1400} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 2 {1400} {1600} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 2 {1600} {1800} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 2 {1800} {2000} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
   
-  \event 3 {1100} {1400} {Mittagessen}      {Alte Mensa}       {} {essen}   {0}
-  \event 3 {1400} {1600} {Reso Vorstellung} {bar}              {} {plenum}  {0}
-  \event 3 {1600} {1800} {Hackerbrause}     {bar}              {} {brause}  {0}
-  \event 3 {1800} {2000} {Stadtführung}     {Treffpunkt foo}   {} {kultur}  {0}
-  \event 3 {2000} {2300} {Kino}             {im Kasten}        {} {spass}   {1}
-  \event 3 {2000} {2400} {Kneipentour}      {Treffpunkt bar}   {} {spass}   {2}
-  \event 3 {0800} {1000} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 3 {1000} {1200} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 3 {1200} {1400} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 3 {1600} {1800} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 3 {1800} {2000} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
+  \event 3 {1100} {1400} {Mittagessen}      {11} {Alte Mensa}        {} {essen}   {0}
+  \event 3 {1400} {1600} {Reso Vorstellung} {14} {bar}               {} {plenum}  {0}
+  \event 3 {1600} {1800} {Vortrag: Kolle}   {16} {bar}               {} {brause}  {0}
+  \event 3 {1800} {2000} {Stadtführung}     {18} {Treffpunkt foo}    {} {kultur}  {0}
+  \event 3 {2000} {2300} {Kino}             {20} {im Kasten}         {} {spass}   {1}
+  \event 3 {2000} {2400} {Kneipentour}      {20} {Treffpunkt bar}    {} {spass}   {2}
+  \event 3 {0800} {1000} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 3 {1000} {1200} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 3 {1200} {1400} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 3 {1600} {1800} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 3 {1800} {2000} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
 
-  \event 4 {1000} {1500} {Mittagessen}      {foo (Werbestand)} {} {essen}   {0}
-  \event 4 {1600} {1800} {Hackerbrause}     {bar}              {} {brause}  {0}
-  \event 4 {1815} {2400} {Abschlussplenum}  {Schönfeld-Hörsaal (Barkhausen Bau)} {} {plenum}  {0}
-  \event 4 {0800} {1000} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 4 {1000} {1200} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 4 {1200} {1400} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 4 {1400} {1600} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
-  \event 4 {1600} {1800} {\hfill A\\ \hfill K} {}              {} {ak}      {3}
+  \event 4 {1000} {1500} {Mittagessen}      {10} {foo (Werbestand)}  {} {essen}   {0}
+  \event 4 {1600} {1800} {Vortrag: Wostock} {16} {bar}               {} {brause}  {0}
+  \event 4 {1830} {2400} {Abschlussplenum}  {18:30} {Schönfeld-Hörsaal} {} {plenum}  {0}
+  \event 4 {0800} {1000} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 4 {1000} {1200} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 4 {1200} {1400} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 4 {1400} {1600} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
+  \event 4 {1600} {1800} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
 \end{timetable}
 % \end{landscape}
 \end{document}          

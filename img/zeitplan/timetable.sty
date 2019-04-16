@@ -205,7 +205,7 @@
     \ifthenelse{\value{#1} < 10}{0}{}\arabic{#1}:\ifthenelse{\value{#2} < 10}{0}{}\arabic{#2}
 }
 
-\newcommand{\slotevent}[8]
+\newcommand{\slotevent}[9]
   {
     % Arguments: {x}{y}{duration}{title}{lecturer}{place}{type}{textcolor}
     \renewcommand{\baselinestretch}{0.75}\normalsize
@@ -233,14 +233,14 @@
     % \addtolength{\@offset}{\@colwdth}
     }
 
-  \dothis{#8}
+  \dothis{#9}
 
     \addtolength{\@startposx}{\@cornerradius}
-    \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#7block}
+    \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#8block}
       {\rule[-\dp\strutbox]{\@colwdth-2\@cornerradius}{\@eventheight}}}
     \addtolength{\@startposx}{-\@cornerradius}
     \addtolength{\@startposy}{\@cornerradius}
-    \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#7block}
+    \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#8block}
       {\rule[-\dp\strutbox]{\@colwdth}{\@eventheight-2\@cornerradius}}}
     \addtolength{\@startposy}{-\@cornerradius}
 
@@ -266,20 +266,20 @@
       % Left rounded corners
       \addtolength{\@startposx}{.5\@cornerradius}
       \addtolength{\@startposy}{.5\@cornerradius-\dp\strutbox}
-      \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#7block}{\circle*{\strip@pt\@cornerradius}}}
+      \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#8block}{\circle*{\strip@pt\@cornerradius}}}
       \addtolength{\@startposy}{-.5\@cornerradius+\dp\strutbox}
       \addtolength{\@startposy}{-.5\@cornerradius-\dp\strutbox+\@eventheight}
-      \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#7block}{\circle*{\strip@pt\@cornerradius}}}
+      \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#8block}{\circle*{\strip@pt\@cornerradius}}}
       \addtolength{\@startposy}{.5\@cornerradius+\dp\strutbox-\@eventheight}
       \addtolength{\@startposx}{-.5\@cornerradius}
 
       % Right rounded corners
       \addtolength{\@startposx}{-.5\@cornerradius+\@colwidth-1pt}
       \addtolength{\@startposy}{.5\@cornerradius-\dp\strutbox}
-      \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#7block}{\circle*{\strip@pt\@cornerradius}}}
+      \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#8block}{\circle*{\strip@pt\@cornerradius}}}
       \addtolength{\@startposy}{-.5\@cornerradius+\dp\strutbox}
       \addtolength{\@startposy}{-.5\@cornerradius-\dp\strutbox+\@eventheight}
-      \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#7block}{\circle*{\strip@pt\@cornerradius}}}
+      \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#8block}{\circle*{\strip@pt\@cornerradius}}}
       \addtolength{\@startposy}{.5\@cornerradius+\dp\strutbox-\@eventheight}
       \addtolength{\@startposx}{.5\@cornerradius-\@colwidth-1pt}
     }{}
@@ -295,7 +295,7 @@
     \addtolength{\@newrowtop}{-2\@textframe}
     \setlength{\@newcolleft}{#1\@colwidth+.5pt}
     \addtolength{\@newcolleft}{\@textframe}
-    \ifthenelse{#8 = 0}{
+    \ifthenelse{#9 = 0}{
       \addtolength{\@newcolleft}{-\@colwidth*\ratio{\@B}{\@A}}
     }{
       \addtolength{\@newcolleft}{-\@colwdth}
@@ -304,7 +304,7 @@
     \ifthenelse{\value{@hoursset} = 0}{\setcounter{@printtimestamps}{0}}{}
 
     % Title
-    \ifthenelse{#8 = 3}{
+    \ifthenelse{#9 = 3}{
       \addtolength{\@newcolwidth}{-\@colwidth*\ratio{\@B}{\@A}}
       \addtolength{\@newcolwidth}{11pt}
       \addtolength{\@newrowtop}{-10pt}
@@ -313,7 +313,7 @@
     \put(\strip@pt\@newcolleft,\strip@pt\@newrowtop)
         {\begin{minipage}[t]{\@newcolwidth}%
           \hspace*{\@offset}
-          \@ttfont\raggedright\color{@timetable#7text}%
+          \@ttfont\raggedright\color{@timetable#8text}%
             \ifthenelse{\value{@printtimestamps} > 0}%
               {{\@timestyle \@fmtTime{@startHour}{@startMinute}}%
                 \ifthenelse{\value{@printtimestamps} = 2}%
@@ -321,7 +321,25 @@
                   {}%
               \\}%
               {}%
-              {\textbf{#4}}%
+              \ifthenelse{#9 = 0}{%
+                \textbf{#4}%
+                \ifthenelse{\equal{#4}{Abschlussplenum}}{
+                  \\\transparent{.7}#5 Uhr%
+                }{
+                  \ifthenelse{\equal{#4}{Anreise}}{}{
+                    \hfill\transparent{.7}#5 Uhr\hspace*{10pt}%
+                  }
+                }
+              }{}%
+              \ifthenelse{#9 = 1}{%
+                {\textbf{#4} \\ \transparent{.7}#5 Uhr}%
+              }{}%
+              \ifthenelse{#9 = 2}{%
+                {\textbf{#4} \\ \hspace*{\@offset} \transparent{.7}#5 Uhr}%
+              }{}%
+              \ifthenelse{#9 = 3}{%
+                {\textbf{#4}}%
+              }{}%
          \end{minipage}}
     \addtolength{\@newrowtop}{1pt}
 
@@ -334,7 +352,7 @@
     \put(\strip@pt\@newcolleft,\strip@pt\@newrowtop)
         {\begin{minipage}[t]{1.0\@newcolwidth}%
           \hspace*{\@offset}
-	  \@ttfont\raggedright\color{@timetable#7text}{\@bottomstyle #5%
+	  \@ttfont\raggedright\color{@timetable#8text}{\@bottomstyle #6%
             \vphantom{A}}
             \ifthenelse{\value{@printtimestamps} = 1}%
               {{\@timestyle \@fmtTime{@endHour}{@endMinute}}}%
@@ -354,7 +372,7 @@
     \renewcommand{\baselinestretch}{1.0}\normalsize
   }
 
-\newcommand{\event}[8]
+\newcommand{\event}[9]
   {
     % Arguments: {@day}{@start}{@end}{title}{lecturer}{place}{type}
 
@@ -380,7 +398,7 @@
       \setcounter{@durationslots}{#3-#2}
     }
 
-    \slotevent{#1}{\value{@hourslot}}{\value{@durationslots}}{#4}{#5}{#6}{#7}{#8}
+    \slotevent{#1}{\value{@hourslot}}{\value{@durationslots}}{#4}{#5}{#6}{#7}{#8}{#9}
   }
 
 \newcommand{\legend}[3]
