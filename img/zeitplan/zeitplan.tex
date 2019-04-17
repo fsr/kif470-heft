@@ -30,19 +30,23 @@
 % Define event types
 %                     background        foreground                      
 \defineevent{essen}  {0.69}{0.11}{0.20}   {1.0}{1.0}{1.0}  % rot
-\defineevent{spass}  {0.69}{0.88}{0.11}   {0.0}{0.0}{0.0}  % grün
-\defineevent{kultur} {0.69}{0.88}{0.11}   {0.0}{0.0}{0.0}  % grün
+\defineevent{spass}  {0.69}{0.88}{0.11}   {0.25}{0.25}{0.25}  % grün
+\defineevent{kultur} {0.69}{0.88}{0.11}   {0.25}{0.25}{0.25}  % grün
 \defineevent{brause} {0.35}{0.00}{0.50}   {1.0}{1.0}{1.0}  % lila
 % \defineevent{ak}     {0.65}{0.65}{0.65}   {1.0}{1.0}{1.0}  % grau
 \defineevent{ak}     {0.09}{0.45}{0.56}   {1.0}{1.0}{1.0}  % petrol
 \defineevent{plenum} {0.96}{0.56}{0.07}   {1.0}{1.0}{1.0}  % orange
-\defineevent{anreise}{0.925}{0.925}{0.925}   {0.0}{0.0}{0.0}  % weiß
+\defineevent{anreise}{0.925}{0.925}{0.925}   {0.25}{0.25}{0.25}  % weiß
 
 % Start the timetable
+\begin{center}
 \begin{timetable}
   \hours{8}{15}{0}
   \germandays{1}
-  \event 1 {0800} {1800} {Anreise} {} {} {} {anreise}  {0}
+  \event 1 {0800} {1800} {Anreise}
+    {Und das alles nur, damit man sieht, dass das kein normales Event, sondern
+    wat anderes ist...}
+    {} {} {anreise}  {4}
   \event 1 {1800} {1900} {Erstkiffelplenum} {18} {Schönfeld-Hörsaal} {} {plenum}  {0}
   \event 1 {1900} {2400} {Anfangsplenum}    {19} {Schönfeld-Hörsaal} {} {plenum}  {0}
 
@@ -77,5 +81,6 @@
   \event 4 {1400} {1600} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
   \event 4 {1600} {1800} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
 \end{timetable}
+\end{center}
 % \end{landscape}
 \end{document}          

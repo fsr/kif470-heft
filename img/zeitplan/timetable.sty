@@ -37,7 +37,7 @@
 % Preset the colors
 \definecolor{ttframecol1}{rgb}{0.95,0.95,0.95}
 \definecolor{ttframecol2}{rgb}{0.9,0.9,0.9}
-\definecolor{ttfontcolor}{rgb}{0.0,0.0,0.0}
+\definecolor{ttfontcolor}{rgb}{0.25,0.25,0.25}
 \definecolor{ttlinecol1}{rgb}{0.0,0.0,0.0}
 \definecolor{ttlinecol2}{rgb}{0.5,0.0,0.0}
 
@@ -58,8 +58,6 @@
 \newcommand{\timetablefont}{\sffamily}
 \newcommand{\@ttfont}{\timetablefont\selectfont}
 
-\newlength{\@A}
-\newlength{\@B}
 % Dimensions
 \newlength{\@rowheight}
 \newlength{\@rowhght}
@@ -83,8 +81,6 @@
 \newcounter{@frametype}
 \newcounter{@framevalign}
 
-\setlength{\@A}{10pt}
-\setlength{\@B}{5pt}
 % Predefines
 \setlength{\@cornerradius}{3pt}
 \setcounter{@frametype}2
@@ -206,34 +202,44 @@
 }
 
 \newcommand{\slotevent}[9]
-  {
+{
     % Arguments: {x}{y}{duration}{title}{lecturer}{place}{type}{textcolor}
     \renewcommand{\baselinestretch}{0.75}\normalsize
 
-    % \setlength{\@colwdth}{\@colwidth*\ratio{\@B}{\@A}}
     \setlength{\@startposx}{#1\@colwidth-0.5pt}
     \setlength{\@startposy}{-#2\@rowheight-1.0pt}
     \setlength{\@eventheight}{#3\@rowheight-0pt}
     \addtolength{\@startposy}{-\@eventheight}
 
-  \setlength{\@colwdth}{\@colwidth*\ratio{\@B}{\@A}}
+    \setlength{\@colwdth}{\@colwidth*\real{0.5}}
     \addtolength{\@startposx}{-\@colwdth}
-  \setlength{\@offset}{-2pt}
+    \setlength{\@offset}{-2pt}
 
-  % \addcase\dothis{0}{\setlength{\@colwdth}{\@colwidth}}
-  \addcase\dothis{0}{\addtolength{\@colwdth}{\@colwidth*\ratio{\@B}{\@A}}}
-  \addcase\dothis{1}{}
-  \addcase\dothis{2}{\addtolength{\@startposx}{\@colwdth}\addtolength{\@offset}{\@colwdth}}
-  \addcase\dothis{3}{
+    % \addcase\dothis{0}{\setlength{\@colwdth}{\@colwidth}}
+    \addcase\dothis{0}{\addtolength{\@colwdth}{\@colwidth*\real{0.5}}}
+    \addcase\dothis{1}{}
+    \addcase\dothis{2}{\addtolength{\@startposx}{\@colwdth}\addtolength{\@offset}{\@colwdth}}
+    \addcase\dothis{3}{
     \addtolength{\@startposx}{\@colwidth-10pt}
     % \addtolength{\@offset}{60pt}
     \setlength{\@colwdth}{10pt}
     % \addtolength{\@offset}{-\@colwidth-0.5pt}
-    % \addtolength{\@offset}{\@colwidth*\ratio{\@B}{\@A}}
     % \addtolength{\@offset}{\@colwdth}
     }
+    \addcase\dothis{4}{
+      \newlength{\@manuOffset}
+      \setlength{\@manuOffset}{7pt}
+      \addtolength{\@colwdth}  {-\@manuOffset*\real{2}+\@colwidth*\real{0.5}}
+      \setlength{\@eventheight}{-\@manuOffset*\real{2}+#3\@rowheight}
+      \addtolength{\@startposx}{\@manuOffset}
+      \addtolength{\@startposy}{\@manuOffset}
+    % % \addtolength{\@offset}{60pt}
+    % \setlength{\@colwdth}{10pt}
+    % % \addtolength{\@offset}{-\@colwidth-0.5pt}
+    % % \addtolength{\@offset}{\@colwdth}
+    }
 
-  \dothis{#9}
+    \dothis{#9}
 
     \addtolength{\@startposx}{\@cornerradius}
     \put(\strip@pt\@startposx,\strip@pt\@startposy){\textcolor{@timetable#8block}
@@ -295,8 +301,12 @@
     \addtolength{\@newrowtop}{-2\@textframe}
     \setlength{\@newcolleft}{#1\@colwidth+.5pt}
     \addtolength{\@newcolleft}{\@textframe}
-    \ifthenelse{#9 = 0}{
-      \addtolength{\@newcolleft}{-\@colwidth*\ratio{\@B}{\@A}}
+    \ifthenelse{#9 = 0 \OR #9 = 4}{
+      \addtolength{\@newcolleft}{-\@colwidth*\real{0.5}}
+      \ifthenelse{#9 = 4}{
+        \addtolength{\@newcolleft}{ \@manuOffset}
+        \addtolength{\@newrowtop} {-\@manuOffset}
+      }{}
     }{
       \addtolength{\@newcolleft}{-\@colwdth}
     }
@@ -305,9 +315,13 @@
 
     % Title
     \ifthenelse{#9 = 3}{
-      \addtolength{\@newcolwidth}{-\@colwidth*\ratio{\@B}{\@A}}
+      \addtolength{\@newcolwidth}{-\@colwidth*\real{0.5}}
       \addtolength{\@newcolwidth}{11pt}
       \addtolength{\@newrowtop}{-10pt}
+    } {}
+    \ifthenelse{#9 = 4}{
+      % \addtolength{\@newcolwidth}{-\@colwidth*\real{0.5}}
+      \addtolength{\@newcolwidth}{-\@manuOffset}
     } {}
     \addtolength{\@newrowtop}{-10pt}
     \put(\strip@pt\@newcolleft,\strip@pt\@newrowtop)
@@ -321,12 +335,14 @@
                   {}%
               \\}%
               {}%
-              \ifthenelse{#9 = 0}{%
+              \ifthenelse{#9 = 0 \OR #9 = 4}{%
                 \textbf{#4}%
                 \ifthenelse{\equal{#4}{Abschlussplenum}}{
                   \\\transparent{.7}#5 Uhr%
                 }{
-                  \ifthenelse{\equal{#4}{Anreise}}{}{
+                  \ifthenelse{\equal{#4}{Anreise}}{
+                    \\#5%
+                   }{
                     \hfill\transparent{.7}#5 Uhr\hspace*{10pt}%
                   }
                 }
@@ -410,9 +426,8 @@
     \setlength{\@newrowtop}{\@rowheight*(-#2+1)-\dp\strutbox}
     \setlength{\@newcolleft}{#1\@colwidth-\@colwidth}
     \ifthenelse{#2 = 1}{
-      \addtolength{\@newcolleft}{-\@colwidth*\ratio{\@B}{\@A}}
+      \addtolength{\@newcolleft}{-\@colwidth*\real{0.5}}
     } {
-      % \addtolength{\@newcolleft}{-\@colwidth*\ratio{\@B}{\@A}}
     }
 
     \ifthenelse{\value{@hoursset} = 0}
@@ -422,13 +437,24 @@
     % Select frame type
     \ifthenelse{\value{@frametype} = 1}
     { % Lines
-      % \ifthenelse{#1 = 1}{\put(\strip@pt\@newcolleft,\strip@pt\@newrowtop){\textcolor{ttframecol1}{\rule{\@colwidth}{1pt}}}}{}
+      % \ifthenelse{#1 = 1}{\put(\strip@pt\@newcolleft,\strip@pt\@newrowtop){\textcolor{black}{\rule{\@colwidth}{1pt}}}}{}
       % TODO change here 
-      % \addtolength{\@newrowtop}{-\value{@topheight}\@rowheight}
-      % \addtolength{\@newcolleft}{-1pt}
-      % \ifthenelse{#2 = 1}{\put(\strip@pt\@newcolleft,\strip@pt\@newrowtop){\textcolor{ttframecol2}{\rule{1pt}{\value{@topheight}\@rowheight}}}}{}
+      \addtolength{\@newrowtop}{-\value{@topheight}\@rowheight}
+
+      \addtolength{\@newrowtop}{-2.5pt-\@rowheight*(63)-\dp\strutbox}
+      % \addtolength{\@newrowtop}{-50pt}
+
+      \addtolength{\@newcolleft}{-0.5pt}
+      % \ifthenelse{#2 = 1}{\put(\strip@pt\@newcolleft,\strip@pt\@newrowtop){\textcolor{black}{\rule{0.5pt}{\value{@topheight}\@rowheight}}}}{}
+      \ifthenelse{#2 = 1}{
+        % \ifthenelse{\equal{#3}{Mittwoch}}{}{
+          \put(\strip@pt\@newcolleft,\strip@pt\@newrowtop){\textcolor{black}{\rule{0.5pt}{\@rowheight*(68)-\dp\strutbox}}}
+         % }
+      }{}
+      \addtolength{\@newcolleft}{+0.5pt}
+      \addtolength{\@newrowtop}{+2.5pt+\@rowheight*(63)+\dp\strutbox}
       % \addtolength{\@newcolleft}{1pt}
-      % \addtolength{\@newrowtop}{\value{@topheight}\@rowheight}
+      \addtolength{\@newrowtop}{\value{@topheight}\@rowheight}
     }
     { % Checkerboard
       % Horizontal stripe
@@ -482,7 +508,17 @@
       }
     }{}
 
-    \put(\strip@pt\@newcolleft,\strip@pt\@newrowtop){\makebox{\textcolor{ttfontcolor}{\@ttfont\large #3}}}
+    \ifthenelse{#2 = 1}{
+      \setlength{\@newcolleft}{#1\@colwidth-\@colwidth}
+      \addtolength{\@newcolleft}{-\@colwidth*\real{0.25}}
+      \put(\strip@pt\@newcolleft,\strip@pt\@newrowtop){
+        \makebox[\@colwidth*\real{0.5}]{\textcolor{ttfontcolor}
+        {\@ttfont\large \textbf{#3}}}}
+    } {
+      \put(\strip@pt\@newcolleft,\strip@pt\@newrowtop){
+        \makebox[\@colwidth*\real{0.325}]{\textcolor{ttfontcolor}
+        {\@ttfont\large \hfill \textbf{#3}}}}
+    }
   }
 
 \newcommand{\timemark}[1]
@@ -586,7 +622,7 @@
     % Set the new layout setting
     \setlength{\@totalheight}{-\value{@rowcount}\@rowheight}%
     \setlength{\@totalwidth}{\value{@colcount}\@colwidth}%
-    \addtolength{\@totalwidth}{-\@colwidth*\ratio{\@B}{\@A}}%
+    \addtolength{\@totalwidth}{-\@colwidth*\real{0.5}}%
     %
     % Reset the counters
     \setcounter{@timemarks}{\value{@topheight}}%
@@ -600,7 +636,7 @@
       % Draw the grey frame
       \put(0,\strip@pt\@totalheight){\textcolor{ttframecol1}{\rule[-\dp\strutbox]{\@totalwidth}{-\@rowheight}}}
       \setlength{\@toprowheight}{\value{@topheight}\@rowheight}
-      \put(0,-\strip@pt\@toprowheight){\textcolor{ttframecol1}{\rule[-\dp\strutbox]{\@totalwidth}{\@toprowheight}}}
+      \put(0,-\strip@pt\@toprowheight){\textcolor{white}{\rule[-\dp\strutbox]{\@totalwidth}{\@toprowheight}}}
 
       % Test
       % \put(0,\strip@pt\@rowheight){\textcolor{ttframecol1}{\rule[-\dp\strutbox]{\@totalwidth}{-\@rowheight}}}
