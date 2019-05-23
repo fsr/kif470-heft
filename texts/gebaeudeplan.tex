@@ -1,5 +1,14 @@
 \thispagestyle{empty}
 
-\begin{center}
-  \includegraphics[width = 1.25\textwidth, angle = -90]{img/MAP_APB}
-\end{center}
+\newcommand\BackcoverPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[angle = 90, width = \paperwidth, height = \paperheight, keepaspectratio]{img/MAP_APB.png}%
+\vfill
+}}}
+\AddToShipoutPicture*{\BackcoverPic}
+
+\mbox{}
+\pagebreak
