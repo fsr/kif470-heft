@@ -217,26 +217,39 @@
 
     % \addcase\dothis{0}{\setlength{\@colwdth}{\@colwidth}}
     \addcase\dothis{0}{\addtolength{\@colwdth}{\@colwidth*\real{0.5}}}
+    \addcase\dothis{6}{
+      \addtolength{\@colwdth}{\@colwidth*\real{0.5}}
+    }
     \addcase\dothis{1}{}
+    \addcase\dothis{7}{}
     \addcase\dothis{2}{\addtolength{\@startposx}{\@colwdth}\addtolength{\@offset}{\@colwdth}}
     \addcase\dothis{3}{
-    \addtolength{\@startposx}{\@colwidth-10pt}
-    % \addtolength{\@offset}{60pt}
-    \setlength{\@colwdth}{10pt}
-    % \addtolength{\@offset}{-\@colwidth-0.5pt}
-    % \addtolength{\@offset}{\@colwdth}
+      \addtolength{\@startposx}{\@colwidth-10pt}
+      % \addtolength{\@offset}{60pt}
+      \setlength{\@colwdth}{10pt}
+      % \addtolength{\@offset}{-\@colwidth-0.5pt}
+      % \addtolength{\@offset}{\@colwdth}
     }
+    % \addcase\dothis{4}{\addtolength{\@colwdth}{\@colwidth*\real{0.5}}}
     \addcase\dothis{4}{
+      % \addtolength{\@startposx}{\@colwidth-10pt}
+      % \addtolength{\@offset}{60pt}
+      \setlength{\@colwdth}{10pt}
+      % \addtolength{\@colwdth}{-10pt}
+      % \addtolength{\@offset}{-\@colwidth-0.5pt}
+      % \addtolength{\@offset}{\@colwdth}
+    }
+    \addcase\dothis{5}{
       \newlength{\@manuOffset}
       \setlength{\@manuOffset}{7pt}
       \addtolength{\@colwdth}  {-\@manuOffset*\real{2}+\@colwidth*\real{0.5}}
       \setlength{\@eventheight}{-\@manuOffset*\real{2}+#3\@rowheight}
       \addtolength{\@startposx}{\@manuOffset}
       \addtolength{\@startposy}{\@manuOffset}
-    % % \addtolength{\@offset}{60pt}
-    % \setlength{\@colwdth}{10pt}
-    % % \addtolength{\@offset}{-\@colwidth-0.5pt}
-    % % \addtolength{\@offset}{\@colwdth}
+      % % \addtolength{\@offset}{60pt}
+      % \setlength{\@colwdth}{10pt}
+      % % \addtolength{\@offset}{-\@colwidth-0.5pt}
+      % % \addtolength{\@offset}{\@colwdth}
     }
 
     \dothis{#9}
@@ -301,11 +314,14 @@
     \addtolength{\@newrowtop}{-2\@textframe}
     \setlength{\@newcolleft}{#1\@colwidth+.5pt}
     \addtolength{\@newcolleft}{\@textframe}
-    \ifthenelse{#9 = 0 \OR #9 = 4}{
+    \ifthenelse{#9 = 0 \OR #9 = 5 \OR #9 = 6}{
       \addtolength{\@newcolleft}{-\@colwidth*\real{0.5}}
-      \ifthenelse{#9 = 4}{
+      \ifthenelse{#9 = 5}{
         \addtolength{\@newcolleft}{ \@manuOffset}
         \addtolength{\@newrowtop} {-\@manuOffset}
+      }{}
+      \ifthenelse{#9 = 6}{
+        \addtolength{\@newcolleft}{10pt}
       }{}
     }{
       \addtolength{\@newcolleft}{-\@colwdth}
@@ -314,12 +330,23 @@
     \ifthenelse{\value{@hoursset} = 0}{\setcounter{@printtimestamps}{0}}{}
 
     % Title
+    \ifthenelse{#9 = 7}{
+      \addtolength{\@newcolleft}{10pt}
+    }{}
     \ifthenelse{#9 = 3}{
       \addtolength{\@newcolwidth}{-\@colwidth*\real{0.5}}
       \addtolength{\@newcolwidth}{11pt}
       \addtolength{\@newrowtop}{-10pt}
     } {}
     \ifthenelse{#9 = 4}{
+      % \addtolength{\@newcolwidth}{-\@colwidth*\real{0.5}}
+      % \setlength{\@colwdth}{\@colwidth*\real{0.5}}
+      \addtolength{\@newcolwidth}{11pt}
+      \addtolength{\@newrowtop}{-\@eventheight*\real{0.33}}
+      \addtolength{\@newcolleft}{-\@colwidth}
+      \addtolength{\@newcolleft}{9.25pt}
+    } {}
+    \ifthenelse{#9 = 5}{
       % \addtolength{\@newcolwidth}{-\@colwidth*\real{0.5}}
       \addtolength{\@newcolwidth}{-\@manuOffset}
     } {}
@@ -335,26 +362,29 @@
                   {}%
               \\}%
               {}%
-              \ifthenelse{#9 = 0 \OR #9 = 4}{%
+              \ifthenelse{#9 = 0 \OR #9 = 6 \OR #9 = 5}{%
                 \textbf{#4}%
                 \ifthenelse{\equal{#4}{Abschlussplenum}}{
                   \\\transparent{.7}#5 Uhr%
                 }{
-                  \ifthenelse{\equal{#4}{Anreise}}{
+                  \ifthenelse{\equal{#4}{Nach der Anreise}}{
                     \\#5%
                    }{
                     \hfill\transparent{.7}#5 Uhr\hspace*{10pt}%
+                    \ifthenelse{#9 = 6}{
+                      \hspace*{10pt}%
+                    }{}
                   }
                 }
               }{}%
-              \ifthenelse{#9 = 1}{%
+              \ifthenelse{#9 = 1 \OR #9 = 7}{%
                 {\textbf{#4} \\ \transparent{.7}#5 Uhr}%
               }{}%
               \ifthenelse{#9 = 2}{%
                 {\textbf{#4} \\ \hspace*{\@offset} \transparent{.7}#5 Uhr}%
               }{}%
-              \ifthenelse{#9 = 3}{%
-                {\textbf{#4}}%
+              \ifthenelse{#9 = 3 \OR #9 = 4}{%
+                {\centering \textbf{#4}}%
               }{}%
          \end{minipage}}
     \addtolength{\@newrowtop}{1pt}
