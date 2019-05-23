@@ -38,7 +38,7 @@
 % \setprinttimestamps{2}
 
 % Define event types
-%                     background        foreground                      
+%                     background        foreground
 \defineevent{essen}  {0.69}{0.11}{0.20}   {1.0}{1.0}{1.0}  % rot
 \defineevent{spass}  {0.69}{0.88}{0.11}   {0.25}{0.25}{0.25}  % grün
 \defineevent{kultur} {0.69}{0.88}{0.11}   {0.25}{0.25}{0.25}  % grün
@@ -56,15 +56,18 @@
   \germandays{1}
   \event 1 {0800} {1800} {Nach der Anreise}
   {\begin{todolist}[leftmargin=*]
+  \addtolength\itemsep{-1pt}
     \item[\done] KIF-Heft erhalten
-    \item Taschen in die Halle (durchgängig offen)
-    \item Nur für Erstkiffel: Erstkiffelheft erhalten
+    \item Taschen in die Halle\\\vspace{2pt}(durchgängig offen)
+    \item Nur für Erstkiffel:\\\vspace{2pt}Erstkiffelheft erhalten
     \item Goodie Bag befüllt
     \item Erste Mate getrunken
     \item Gefrühstückt
     \item Nette Leute getroffen
     \item Einen Engel umarmt
     \item Gefrühstückt
+    \item ???
+    \item Profit
    \end{todolist}}
     {} {} {anreise}  {5}
   \event 1 {1800} {1900} {Erstkiffelplenum} {18} {Schönfeld-Hörsaal} {} {plenum}  {0}
@@ -79,7 +82,7 @@
   \event 2 {1400} {1600} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
   \event 2 {1600} {1800} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
   \event 2 {1800} {2000} {\hfill A\\ \hfill K} {} {}               {} {ak}      {3}
-  
+
   \event 3 {1100} {1400} {Mittagessen}      {11} {Mensa}        {} {essen}   {0}
   \event 3 {1400} {1600} {Reso Vorstellung} {14} {Schönfeld-Hörsaal}               {} {plenum}  {0}
   \event 3 {1600} {1800} {Vortrag: Kolle}   {16} {TBA}               {} {brause}  {0}
@@ -106,4 +109,4 @@
 \end{timetable}
 \end{center}
 % \end{landscape}
-\end{document}          
+\end{document}
